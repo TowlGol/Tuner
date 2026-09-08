@@ -73,7 +73,7 @@ Avoid installing the application into an Anaconda base environment that already 
 The current release preserves `TopoTunnel_UI` as its internal Python package name for compatibility. Clone the `Tuner` repository into a local directory named `TopoTunnel_UI`, then run PowerShell from its parent directory:
 
 ```powershell
-git clone <TUNER-GITHUB-URL> TopoTunnel_UI
+git clone https://github.com/TowlGol/Tuner.git TopoTunnel_UI
 cd <path-containing-TopoTunnel_UI>
 ```
 
