@@ -6,7 +6,7 @@ Directly superimposing multiple tunnel ensembles in three dimensions often produ
 
 The interface integrates four linked components: **Dataset Compare** for cross-dataset tunnel correspondence, the **Full-path Residue Replacement Map** for localizing residue-environment changes, the **Residue Observer** for side-by-side structural inspection, and an **Evidence Workspace** for examining geometric and ensemble-level support. Together, these views help analysts distinguish visually salient differences from interpretations that remain stable across controls or independent trajectories.
 
-Tuner operates on precomputed tunnel ensembles and aligned PDB snapshots. Example datasets and accompanying metadata are distributed separately through the project’s Zenodo records.
+Tuner operates on precomputed tunnel ensembles and aligned PDB snapshots. The processed CYP2J2 case-study dataset and accompanying metadata are available from [Zenodo record 22655693](https://zenodo.org/records/22655693).
 
 ## Installation
 
@@ -49,7 +49,7 @@ The repository contains the visual analytics application; molecular-dynamics tra
 
 ## Reproducing the CYP2J2 case study
 
-The distributed CYP2J2 archive contains the processed data needed to reproduce the visual analysis reported in the paper. This procedure reproduces the Tuner workflow and its visual observations; it does not rerun the upstream MD simulations or tunnel extraction.
+Download the CYP2J2 archive from [Zenodo record 22655693](https://zenodo.org/records/22655693). The archive contains the processed data needed to reproduce the visual analysis reported in the paper. This procedure reproduces the Tuner workflow and its visual observations; it does not rerun the upstream MD simulations or tunnel extraction.
 
 ### 1. Prepare the dataset
 
