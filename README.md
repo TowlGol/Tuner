@@ -47,6 +47,75 @@ After starting Tuner:
 
 The repository contains the visual analytics application; molecular-dynamics trajectories and precomputed tunnel ensembles are distributed separately.
 
+## Reproducing the CYP2J2 case study
+
+The distributed CYP2J2 archive contains the processed data needed to reproduce the visual analysis reported in the paper. This procedure reproduces the Tuner workflow and its visual observations; it does not rerun the upstream MD simulations or tunnel extraction.
+
+### 1. Prepare the dataset
+
+Extract the archive without changing its directory structure. It should contain:
+
+```text
+CYP2J2/
+|-- dataset/
+|   |-- reference/WT/
+|   `-- targets/
+|       |-- WT_r2/
+|       |-- WT_r3/
+|       |-- WT_r4/
+|       |-- R111A_r2/
+|       |-- R111A_r3/
+|       `-- R117A/
+`-- MD/
+    |-- WT_frames/
+    |-- WT_r2_frames/
+    |-- WT_r3_frames/
+    |-- WT_r4_frames/
+    |-- R111A_r2_frames/
+    |-- R111A_r3_frames/
+    `-- R117A_frames/
+```
+
+Edit the `MD_path.txt` file inside each dataset directory so that it contains the absolute path to the corresponding aligned-frame directory. For an archive extracted to `D:\data\CYP2J2`, `dataset/reference/WT/MD_path.txt` should contain:
+
+```text
+D:\data\CYP2J2\MD\WT_frames
+```
+
+Similarly, `dataset/targets/R111A_r2/MD_path.txt` should contain:
+
+```text
+D:\data\CYP2J2\MD\R111A_r2_frames
+```
+
+Apply the same pattern to the other target datasets. Each available frame directory should contain `aligned_1.pdb` through `aligned_500.pdb`. If a frame directory is unavailable, its processed tunnel ensemble can still be compared, but frame-specific Residue Observer inspection will not be available.
+
+### 2. Load the seven datasets
+
+Start Tuner and add `dataset/reference/WT` and all six directories under `dataset/targets/`. Use `WT` as the source dataset. Keep the supplied correspondence settings unchanged unless intentionally conducting a sensitivity analysis.
+
+### 3. Reproduce the rejected R117A lead
+
+1. In **Dataset Compare**, select source cluster `WT C1` and target dataset `R117A`.
+2. Inspect the accepted `R117A C42 + C6` target family, then open its linked Tunnel Profile and Full-path Residue Replacement Map.
+3. Keep `WT C1` fixed and switch the target successively to `WT_r2`, `WT_r3`, and `WT_r4`.
+4. Compare the replacement bands and bottleneck context under the same visual encoding. Similar or stronger responses in the WT controls show that the initially salient R117A pattern is not mutation-specific.
+
+This stage is intentionally a negative analytical result: it demonstrates how control switching prevents a visually plausible single-trajectory difference from being promoted into an unsupported allosteric interpretation.
+
+### 4. Reproduce the retained R111A hypothesis
+
+1. Return to **Dataset Compare** and select source cluster `WT C32`.
+2. Select `R111A_r2`; inspect the one-to-many target family `C14 + C10`. The strongest distal response should occur approximately within 65.6--78.1% of normalized path length.
+3. Switch the target to `R111A_r3`; inspect target cluster `C8`. Its strongest distal response should occur approximately within 75.0--87.5% of normalized path length.
+4. Select each highlighted interval in the **Full-path Residue Replacement Map** and open the **Residue Observer**. Compare `WT`, `R111A_r2`, and `R111A_r3` with a shared camera and consistent residue colors.
+5. Inspect the local direction of change: both R111A trajectories should show depletion of F148 from, and recruitment of N147 into, the tunnel environment. In the UI sequence numbering, these may appear as PHE S149 and ASN S148.
+6. Keep the source cluster, selected distal region, and color assignment fixed while switching through `WT_r2`, `WT_r3`, and `WT_r4`. The WT responses are heterogeneous and do not reproduce the same paired direction consistently.
+
+### 5. Interpret the result conservatively
+
+The reproducible outcome is a localized, directionally repeated R111A-associated residue redistribution in the C32 route family. Because only two R111A trajectories and one R117A trajectory are available, Tuner presents this result as a testable remote-regulation hypothesis, not as proof of an allosteric transmission pathway or altered arachidonic-acid transport. Treat trajectories, rather than their individual frames or tunnel instances, as the independent observational units.
+
 ## License
 
 Copyright (c) 2026 Yapeng Liu. All rights reserved. This project is provided for local, non-commercial research evaluation only. Republishing, reproducing, mirroring, redistributing, sublicensing, selling, or incorporating any part of the code or documentation into another distributed work is prohibited without prior written permission. See [LICENSE](https://github.com/TowlGol/Tuner/blob/main/LICENSE) for the complete terms.
